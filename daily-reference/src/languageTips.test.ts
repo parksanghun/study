@@ -7,9 +7,11 @@ describe("오늘의 영어·일본어 생활 문장", () => {
     for (const tip of languageTips) {
       expect(tip.korean).toBeTruthy();
       expect(tip.english).toBeTruthy();
+      expect(tip.englishPronunciation).toBeTruthy();
       expect(tip.japanese).toBeTruthy();
+      expect(tip.japanesePronunciation).toBeTruthy();
       expect(tip.words).toHaveLength(3);
-      expect(tip.words.every(word => word.english && word.japanese)).toBe(true);
+      expect(tip.words.every(word => word.english && word.englishPronunciation && word.japanese && word.japanesePronunciation)).toBe(true);
     }
   });
 });
