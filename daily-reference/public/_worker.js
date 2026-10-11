@@ -1,9 +1,9 @@
 const feeds = {
-  KR: "https://news.google.com/rss?hl=ko&gl=KR&ceid=KR:ko",
-  US: "https://news.google.com/rss?hl=en&gl=US&ceid=US:en",
-  JP: "https://news.google.com/rss?hl=ja&gl=JP&ceid=JP:ja",
-  GB: "https://news.google.com/rss?hl=en-GB&gl=GB&ceid=GB:en",
-  CN: "https://news.google.com/rss?hl=zh-CN&gl=CN&ceid=CN:zh-Hans",
+  KR: "https://www.bing.com/news/search?q=South%20Korea&format=rss",
+  US: "https://www.bing.com/news/search?q=United%20States&format=rss",
+  JP: "https://www.bing.com/news/search?q=Japan&format=rss",
+  GB: "https://www.bing.com/news/search?q=United%20Kingdom&format=rss",
+  CN: "https://www.bing.com/news/search?q=China&format=rss",
 };
 
 export default {
