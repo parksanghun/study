@@ -72,3 +72,11 @@ const baseLifeTips: LifeTip[] = groups.flatMap(([category, tips]) => tips.map(([
 })));
 
 export const lifeTips = [...baseLifeTips, ...moreLifeTips, ...more2LifeTips];
+
+export function matchesLifeTipQuery(tip: LifeTip, query: string): boolean {
+  const normalizedQuery = query.trim().toLowerCase();
+  if (!normalizedQuery) return true;
+  return `${tip.category} ${tip.title} ${tip.summary} ${tip.caution}`
+    .toLowerCase()
+    .includes(normalizedQuery);
+}
