@@ -3,18 +3,19 @@ const yahooSymbols = {"KOSPI":"%5EKS11","KOSDAQ":"%5EKQ11","^GSPC":"%5EGSPC","^I
 
 async function getQuotes(request){
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/market-data.json", request.url), request);
+  const cacheKey = new Request(new URL("/market-data.json?v=2", request.url), request);
   const cached = await cache.match(cacheKey);
   if(cached) return cached;
   const quotes = {};
   await Promise.all(symbols.map(async symbol=>{
     try {
-      const response = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${yahooSymbols[symbol]}?range=1d&interval=1d`, {headers:{"User-Agent":"Mozilla/5.0"}});
+      const response = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${yahooSymbols[symbol]}?range=5d&interval=1d`, {headers:{"User-Agent":"Mozilla/5.0"}});
       if(!response.ok) return;
       const result = (await response.json()).chart?.result?.[0];
       const meta = result?.meta;
       const value = meta?.regularMarketPrice;
-      const previous = meta?.previousClose;
+      const closes = result?.indicators?.quote?.[0]?.close?.filter(item => typeof item === "number") || [];
+      const previous = typeof meta?.previousClose === "number" ? meta.previousClose : closes.length > 1 ? closes[closes.length - 2] : null;
       if(typeof value === "number") quotes[symbol] = {value, change:typeof previous === "number" ? value-previous : null, percent:typeof previous === "number" && previous ? ((value-previous)/previous)*100 : null};
     } catch {}
   }));
