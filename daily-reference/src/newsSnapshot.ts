@@ -1,39 +1,39 @@
 export const newsSnapshot = {
   "KR": [
     {
-      "title": "South Korea’s jailed ex-president Yoon and wife received US$1.6 million in inmate funds",
-      "link": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6acc11cbc6b741fca383f26d262d301a&url=https%3a%2f%2fwww.thestar.com.my%2faseanplus%2faseanplus-news%2f2026%2f10%2f11%2fsouth-koreas-jailed-ex-president-yoon-and-wife-received-us16-million-in-inmate-funds&c=243243582501876757&mkt=en-my",
-      "source": "The Star",
-      "image": "https://www.bing.com/th?id=ONUT.u83oeAHwQEs-JkkBRCYZPA&pid=News",
-      "date": "Sun, 11 Oct 2026 05:10:00 GMT"
+      "title": "사우디 전역에 ‘출국 권고’…외교부, 중동 재외국민 안전대책 점검 - 한겨레",
+      "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1Pb1R4Y2h1OWo2UTlLVy14b1NkZktGVEVqQlZkaFFULUFlbERBYzVKVnZsOGx4UnE0NDQ0a2pQUnprbF9wb245eWg1TW5sdjJGTHA2bjBGSWlJNEptZ18yYjBmU1VTOTZkbzNDMTZiMXRibE5h?oc=5",
+      "source": "한겨레",
+      "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=900&q=80",
+      "date": "Sun, 11 Oct 2026 13:15:00 GMT"
     },
     {
-      "title": "South Korea recommends its nationals leave Saudi Arabia amid Houthi attacks",
-      "link": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6acc11cbc6b741fca383f26d262d301a&url=https%3a%2f%2fwww.sarawaktribune.com%2fsouth-korea-recommends-its-nationals-leave-saudi-arabia-amid-houthi-attacks%2f&c=7799186934707659134&mkt=en-my",
-      "source": "sarawaktribune",
-      "image": "https://www.bing.com/th?id=ONUT.Ki5q_tUSB3UdlDKBNLCDMQ&pid=News",
-      "date": "Sun, 11 Oct 2026 14:43:00 GMT"
+      "title": "[단독]한동훈 딸 ‘허위 스펙 의혹’ 경찰 수사, 압색영장 신청 전무…배우자만 1회 ‘서면 조사’ - 경향신문",
+      "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBLVHpzd3ZjS2x6ODZ4MEFCaFh5SXNHNVJ3d0VWZkJjR3hXSXlhNENhdzhIWjJQSExlM25nck1EMHpIREdUdHU5U3hXTDFoS2ZYbHppS0xIT3VBd9IBX0FVX3lxTE8zMm41WGU1dTJ4ajhLSFNaZm1fQ2pobUl6VDV3cXpqNHdfYzAtVTVOdGZHd3NfUktjZkptLURneUY5U0Y2S1hJOGxCNGRzU1kyN0g4VWg4MlR6UzhiSmFR?oc=5",
+      "source": "경향신문",
+      "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=900&q=80",
+      "date": "Sun, 11 Oct 2026 21:00:00 GMT"
     },
     {
-      "title": "South Korea completes first commercial Arctic voyage to EuropePublished on: October 11, 2026 4:20 PM",
-      "link": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6acc11cbc6b741fca383f26d262d301a&url=https%3a%2f%2fwww.msn.com%2fen-xl%2fasia%2fpakistan%2fsouth-korea-completes-first-commercial-arctic-voyage-to-europepublished-on-october-11-2026-420-pm%2far-AA2e00RA&c=15411899262710808920&mkt=en-my",
-      "source": "Daily Times on MSN",
-      "image": "https://www.bing.com/th?id=ONUT.TYmUoIvK7l2GodIQsnvVgg&pid=News",
-      "date": "Sun, 11 Oct 2026 09:50:00 GMT"
+      "title": "트럼프 “러·우크라, 에너지 휴전 합의”···젤렌스키 “처음 듣는 말”, 푸틴은 무반응 - 경향신문",
+      "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE50WFZnb1FXSUFUQTFJSkx4Z2s2VDJ2S0lTQWp4bVlEVEdwdHc4czVsNWszcVI5dDEwQzhlZU01dVptaUxjdVliSVhQT3NoOG5PcDhmQy1SczMzZ9IBX0FVX3lxTE9Yal9xZmE1T2RGRl84WGZ3aFprWkUxOHV1MXNzdl9zcXZyMzhWSFJzNlJWVEg4MWttV1dOdkpMWUR5azZDbHFodEQwQmFDZ1pTSkE2TV95bDR2aHl3ZXA4?oc=5",
+      "source": "경향신문",
+      "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=900&q=80",
+      "date": "Sun, 11 Oct 2026 21:10:00 GMT"
     },
     {
-      "title": "South Korea’s jailed ex-president Yoon and wife received $2 million in inmate funds",
-      "link": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6acc11cbc6b741fca383f26d262d301a&url=https%3a%2f%2fwww.straitstimes.com%2fasia%2feast-asia%2fsouth-koreas-jailed-ex-president-yoon-and-wife-received-2-million-in-inmate-funds&c=6024019224557333166&mkt=en-my",
-      "source": "The Straits Times",
-      "image": "https://www.bing.com/th?id=ONUT.WEAPukJcQINtk2ohckEMiA&pid=News",
-      "date": "Sun, 11 Oct 2026 06:20:00 GMT"
+      "title": "“품격없다, 권위없다 해도 계속”…이 대통령, ‘SNS 정치’ 정면 돌파 - 한겨레",
+      "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE4yb1NSbzBwVy1vcmUxTzBoZGdIUVFmUGpoT2JHMXlkWnBkR2stbTVfYWpwazF0d3FQaV84NXVGUDdHN3NVZTNFMEJGakRlT09pQ0FWblE1bGU1ZHhKYV9RQmlBZFlDbkZDWlpj?oc=5",
+      "source": "한겨레",
+      "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=900&q=80",
+      "date": "Sun, 11 Oct 2026 16:10:00 GMT"
     },
     {
-      "title": "South Korea and Brunei seek closer ties in AI, digital transformation",
-      "link": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6acc11cbc6b741fca383f26d262d301a&url=https%3a%2f%2fwww.thestar.com.my%2faseanplus%2faseanplus-news%2f2026%2f10%2f09%2fsouth-korea-and-brunei-seek-closer-ties-in-ai-digital-transformation&c=8508687379804183774&mkt=en-my",
-      "source": "The Star",
-      "image": "https://www.bing.com/th?id=ONUT.2T2It2SZdLFi0Gat3HDIMQ&pid=News",
-      "date": "Fri, 09 Oct 2026 08:39:00 GMT"
+      "title": "농지 전수조사 후속 입법 추진…농촌 관행과 투기 구분 - 경북일보",
+      "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9vd01Tb1lUQkFJbWhLVFFiSl9RMGlOTld0aEYtS01pY3JTWTRMUzl1TGZXYXFiSlhUUzR3UThIQ0NJdlYzcFNXYVZvT0Z0V1BZM3JNZHI4cDU1R2JLdVJtWHQ1bHdNXzhPMlJuYzFudw?oc=5",
+      "source": "경북일보",
+      "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=900&q=80",
+      "date": "Sun, 11 Oct 2026 06:47:44 GMT"
     }
   ],
   "US": [
