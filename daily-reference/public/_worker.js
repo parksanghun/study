@@ -23,4 +23,27 @@ async function getQuotes(request){
   return response;
 }
 
-export default {async fetch(request, env){const url=new URL(request.url);if(url.pathname==="/market-data.json")return getQuotes(request);return env.ASSETS.fetch(request)}};
+async function getDailyMenu(request){
+  const kst=new Date(Date.now()+9*60*60*1000);
+  const date=kst.toISOString().slice(0,10);
+  const cache=caches.default;
+  const cacheKey=new Request(new URL(`/daily-menu.json?date=${date}`,request.url),request);
+  const cached=await cache.match(cacheKey);
+  if(cached)return cached;
+  const dayNumber=Number(date.replaceAll("-",""));
+  const start=(dayNumber%1156)+1;
+  const end=Math.min(start+4,1156);
+  let menu=null;
+  try{
+    const response=await fetch(`https://openapi.foodsafetykorea.go.kr/api/sample/COOKRCP01/json/${start}/${end}`);
+    if(response.ok){
+      const row=(await response.json()).COOKRCP01?.row?.[0];
+      if(row?.RCP_NM)menu={name:row.RCP_NM,type:row.RCP_PAT2||"오늘의 레시피",description:`${row.RCP_WAY2||"간편한 조리"} 방식으로 만들어 보는 오늘의 메뉴예요.`,tags:[row.RCP_PAT2||"레시피",row.RCP_WAY2||"요리"],image:row.ATT_FILE_NO_MAIN||null,source:"식품안전나라"};
+    }
+  }catch{}
+  const result=new Response(JSON.stringify({date,menu}),{headers:{"Content-Type":"application/json; charset=utf-8","Cache-Control":"public, max-age=86400"}});
+  await cache.put(cacheKey,result.clone());
+  return result;
+}
+
+export default {async fetch(request, env){const url=new URL(request.url);if(url.pathname==="/market-data.json")return getQuotes(request);if(url.pathname==="/daily-menu.json")return getDailyMenu(request);return env.ASSETS.fetch(request)}};
