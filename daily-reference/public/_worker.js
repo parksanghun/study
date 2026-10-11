@@ -24,27 +24,26 @@ async function getQuotes(request){
   return response;
 }
 
-async function getDailyMenu(request){
+async function getDailyMenu(request,env){
   const kst=new Date(Date.now()+9*60*60*1000);
   const date=kst.toISOString().slice(0,10);
   const cache=caches.default;
   const cacheKey=new Request(new URL(`/daily-menu.json?date=${date}`,request.url),request);
   const cached=await cache.match(cacheKey);
   if(cached)return cached;
-  const dayNumber=Number(date.replaceAll("-",""));
-  const start=(dayNumber%1156)+1;
-  const end=Math.min(start+4,1156);
-  let menu=null;
+  const apiKey=env.FOODSAFETY_API_KEY||"sample";
+  const endpoint=apiKey==="sample"?"https://openapi.foodsafetykorea.go.kr/api/sample/COOKRCP01/json/1/5":`https://openapi.foodsafetykorea.go.kr/api/${apiKey}/COOKRCP01/json/1/1000`;
+  let menus=[];
   try{
-    const response=await fetch(`https://openapi.foodsafetykorea.go.kr/api/sample/COOKRCP01/json/${start}/${end}`);
+    const response=await fetch(endpoint);
     if(response.ok){
-      const row=(await response.json()).COOKRCP01?.row?.[0];
-      if(row?.RCP_NM)menu={name:row.RCP_NM,type:row.RCP_PAT2||"오늘의 레시피",description:`${row.RCP_WAY2||"간편한 조리"} 방식으로 만들어 보는 오늘의 메뉴예요.`,tags:[row.RCP_PAT2||"레시피",row.RCP_WAY2||"요리"],image:row.ATT_FILE_NO_MAIN||null,source:"식품안전나라"};
+      const rows=(await response.json()).COOKRCP01?.row||[];
+      menus=rows.filter(row=>row?.RCP_NM).map(row=>({name:row.RCP_NM,type:row.RCP_PAT2||"오늘의 레시피",description:`${row.RCP_WAY2||"간편한 조리"} 방식으로 만들어 보는 오늘의 메뉴예요.`,tags:[row.RCP_PAT2||"레시피",row.RCP_WAY2||"요리"],image:row.ATT_FILE_NO_MAIN||null,source:"식품안전나라"}));
     }
   }catch{}
-  const result=new Response(JSON.stringify({date,menu}),{headers:{"Content-Type":"application/json; charset=utf-8","Cache-Control":"public, max-age=86400"}});
+  const result=new Response(JSON.stringify({date,count:menus.length,menus}),{headers:{"Content-Type":"application/json; charset=utf-8","Cache-Control":"public, max-age=86400"}});
   await cache.put(cacheKey,result.clone());
   return result;
 }
 
-export default {async fetch(request, env){const url=new URL(request.url);if(url.pathname==="/market-data.json")return getQuotes(request);if(url.pathname==="/daily-menu.json")return getDailyMenu(request);return env.ASSETS.fetch(request)}};
+export default {async fetch(request, env){const url=new URL(request.url);if(url.pathname==="/market-data.json")return getQuotes(request);if(url.pathname==="/daily-menu.json")return getDailyMenu(request,env);return env.ASSETS.fetch(request)}};
