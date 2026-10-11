@@ -4,35 +4,35 @@ export const newsSnapshot = {
       "title": "South Korea’s jailed ex-president Yoon and wife received US$1.6 million in inmate funds",
       "link": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6acc11cbc6b741fca383f26d262d301a&url=https%3a%2f%2fwww.thestar.com.my%2faseanplus%2faseanplus-news%2f2026%2f10%2f11%2fsouth-koreas-jailed-ex-president-yoon-and-wife-received-us16-million-in-inmate-funds&c=243243582501876757&mkt=en-my",
       "source": "The Star",
-      "image": "http://www.bing.com/th?id=ONUT.u83oeAHwQEs-JkkBRCYZPA&pid=News",
+      "image": "https://www.bing.com/th?id=ONUT.u83oeAHwQEs-JkkBRCYZPA&pid=News",
       "date": "Sun, 11 Oct 2026 05:10:00 GMT"
     },
     {
       "title": "South Korea recommends its nationals leave Saudi Arabia amid Houthi attacks",
       "link": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6acc11cbc6b741fca383f26d262d301a&url=https%3a%2f%2fwww.sarawaktribune.com%2fsouth-korea-recommends-its-nationals-leave-saudi-arabia-amid-houthi-attacks%2f&c=7799186934707659134&mkt=en-my",
       "source": "sarawaktribune",
-      "image": "http://www.bing.com/th?id=ONUT.Ki5q_tUSB3UdlDKBNLCDMQ&pid=News",
+      "image": "https://www.bing.com/th?id=ONUT.Ki5q_tUSB3UdlDKBNLCDMQ&pid=News",
       "date": "Sun, 11 Oct 2026 14:43:00 GMT"
     },
     {
       "title": "South Korea completes first commercial Arctic voyage to EuropePublished on: October 11, 2026 4:20 PM",
       "link": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6acc11cbc6b741fca383f26d262d301a&url=https%3a%2f%2fwww.msn.com%2fen-xl%2fasia%2fpakistan%2fsouth-korea-completes-first-commercial-arctic-voyage-to-europepublished-on-october-11-2026-420-pm%2far-AA2e00RA&c=15411899262710808920&mkt=en-my",
       "source": "Daily Times on MSN",
-      "image": "http://www.bing.com/th?id=ONUT.TYmUoIvK7l2GodIQsnvVgg&pid=News",
+      "image": "https://www.bing.com/th?id=ONUT.TYmUoIvK7l2GodIQsnvVgg&pid=News",
       "date": "Sun, 11 Oct 2026 09:50:00 GMT"
     },
     {
       "title": "South Korea’s jailed ex-president Yoon and wife received $2 million in inmate funds",
       "link": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6acc11cbc6b741fca383f26d262d301a&url=https%3a%2f%2fwww.straitstimes.com%2fasia%2feast-asia%2fsouth-koreas-jailed-ex-president-yoon-and-wife-received-2-million-in-inmate-funds&c=6024019224557333166&mkt=en-my",
       "source": "The Straits Times",
-      "image": "http://www.bing.com/th?id=ONUT.WEAPukJcQINtk2ohckEMiA&pid=News",
+      "image": "https://www.bing.com/th?id=ONUT.WEAPukJcQINtk2ohckEMiA&pid=News",
       "date": "Sun, 11 Oct 2026 06:20:00 GMT"
     },
     {
       "title": "South Korea and Brunei seek closer ties in AI, digital transformation",
       "link": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6acc11cbc6b741fca383f26d262d301a&url=https%3a%2f%2fwww.thestar.com.my%2faseanplus%2faseanplus-news%2f2026%2f10%2f09%2fsouth-korea-and-brunei-seek-closer-ties-in-ai-digital-transformation&c=8508687379804183774&mkt=en-my",
       "source": "The Star",
-      "image": "http://www.bing.com/th?id=ONUT.2T2It2SZdLFi0Gat3HDIMQ&pid=News",
+      "image": "https://www.bing.com/th?id=ONUT.2T2It2SZdLFi0Gat3HDIMQ&pid=News",
       "date": "Fri, 09 Oct 2026 08:39:00 GMT"
     }
   ],
