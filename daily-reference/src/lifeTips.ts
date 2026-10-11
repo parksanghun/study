@@ -1,4 +1,5 @@
 import { moreLifeTips } from "./moreLifeTips";
+import { more2LifeTips } from "./more2LifeTips";
 
 export type LifeTip = { category: string; id: string; title: string; summary: string; caution: string };
 
@@ -70,4 +71,4 @@ const baseLifeTips: LifeTip[] = groups.flatMap(([category, tips]) => tips.map(([
   category, id: `${category}-${index + 1}`, title, summary, caution,
 })));
 
-export const lifeTips = [...baseLifeTips, ...moreLifeTips];
+export const lifeTips = [...baseLifeTips, ...moreLifeTips, ...more2LifeTips];
