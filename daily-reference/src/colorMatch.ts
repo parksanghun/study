@@ -1,3 +1,13 @@
-export type ClothingColor={id:string;name:string;hex:string;group:string;lightness:number};
-export type MatchResult={score:number;label:string;reason:string;recommendation:string};
-export function getColorMatch(top:ClothingColor,bottom:ClothingColor):MatchResult{const same=top.id===bottom.id; const neutral=new Set(["black","white","gray","navy","beige"]); let score=72; if(same) score=top.id==="black"||top.id==="navy"?78:62; if(neutral.has(top.id)&&neutral.has(bottom.id)) score+=16; if((top.id==="navy"&&bottom.id==="beige")||(top.id==="beige"&&bottom.id==="navy")) score=96; if((top.id==="white"&&bottom.id==="denim")||(top.id==="denim"&&bottom.id==="white")) score=94; if(top.group===bottom.group&&top.group!=="neutral") score-=8; if(Math.abs(top.lightness-bottom.lightness)<12&&!same) score-=4; score=Math.max(45,Math.min(98,score)); const label=score>=90?"아주 잘 어울려요":score>=78?"안정적인 조합이에요":"포인트가 필요한 조합이에요"; const reason=score>=90?"색상 대비가 자연스럽고 전체 인상이 깔끔합니다.":score>=78?"기본 색상 조합이라 실패 확률이 낮습니다.":"상·하의 중 한쪽을 무채색으로 바꾸면 더 정돈됩니다."; const recommendation=score>=90?"신발은 흰색·검정·브라운 중 하나를 추천해요.":"가방이나 신발을 상의 색과 맞추면 통일감이 생겨요."; return {score,label,reason,recommendation};}
+export type MatchSymbol = "◎" | "○" | "△" | "×";
+export type ReferenceMatch = {symbol: MatchSymbol; label: string; note: string};
+export const labels: Record<MatchSymbol, string> = {"◎":"매우 잘 어울림","○":"적당히 어울림","△":"고민해보기","×":"입지 말 것"};
+const notes: Record<MatchSymbol, string> = {"◎":"이미지 기준으로 매우 잘 어울리는 조합입니다.","○":"이미지 기준으로 무난하게 어울리는 조합입니다.","△":"이미지 기준으로 신중하게 선택해보세요.","×":"이미지 기준으로 피하는 조합입니다."};
+export const referenceScores: Record<string, MatchSymbol[]> = {
+  연청:["◎","◎","△","○","○","◎"],
+  진청:["×","○","◎","◎","○","△"],
+  블랙진:["○","◎","◎","◎","◎","◎"],
+  베이지:["◎","○","○","×","×","○"],
+  크림진:["○","△","△","×","◎","◎"],
+  카키:["○","×","○","×","○","×"]
+};
+export function getReferenceMatch(bottomName:string, topIndex:number):ReferenceMatch { const symbol=referenceScores[bottomName][topIndex]; return {symbol,label:labels[symbol],note:notes[symbol]}; }
