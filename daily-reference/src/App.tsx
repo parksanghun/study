@@ -1,1 +1,21 @@
-export default function App(){return <div className="reference-app"><header><div className="brand"><span>◒</span><div><strong>생활팁</strong><small>상·하의 옷 컬러 매칭</small></div></div></header><main><section className="intro"><p className="eyebrow">COLOR MATCH REFERENCE</p><h1>상·하의 컬러 매치표</h1><p>제공해주신 이미지를 기준으로 정리한 컬러 매칭 참고표입니다.</p></section><figure className="reference-image"><img src="/reference/color-match.jpg" alt="상의와 하의 색상 조합 매칭표"/><figcaption>◎ 매우 잘 어울림 · ○ 적당히 어울림 · △ 고민해보기 · × 입지 말 것</figcaption></figure></main><footer><span>데일리 레퍼런스</span><small>이미지 기준 참고 정보이며 개인의 취향과 상황에 따라 달라질 수 있습니다.</small></footer></div>}
+type Symbol = "◎" | "○" | "△" | "×";
+
+const tops = [
+  {name:"네이비", color:"#182b55"}, {name:"그린", color:"#357c4f"},
+  {name:"옐로우", color:"#f1c51b"}, {name:"블루", color:"#0874d1"},
+  {name:"베이지", color:"#e8dfca"}, {name:"레드", color:"#bc2739"},
+];
+const bottoms = [
+  {name:"연청", color:"#8ecdd3"}, {name:"진청", color:"#203c79"},
+  {name:"블랙진", color:"#282a2d"}, {name:"베이지", color:"#e8dfca"},
+  {name:"크림진", color:"#f5f1e6"}, {name:"카키", color:"#3f633f"},
+];
+const matches: Symbol[][] = [
+  ["◎","◎","△","○","○","◎"], ["×","○","◎","◎","○","△"],
+  ["○","◎","◎","◎","◎","◎"], ["◎","○","○","×","×","○"],
+  ["○","△","△","×","◎","◎"], ["○","×","○","×","○","×"],
+];
+
+function Outfit({top, bottom}:{top:string;bottom:string}){return <div className="outfit-icon"><span className="shirt" style={{backgroundColor:top}}/><span className="pants" style={{backgroundColor:bottom}}/></div>}
+
+export default function App(){return <div className="tips-page"><header><div className="brand-mark">◒</div><div><strong>생활팁</strong><small>옷 색상 매칭 가이드</small></div></header><main><h1>상·하의 컬러 매치 꿀팁!</h1><div className="legend"><b>기준</b><span>◎ 매우 잘 어울림</span><span>○ 적당히 어울림</span><span>△ 고민해보기</span><span>× 입지말 것</span></div><div className="table-scroll"><div className="match-chart"><div className="top-axis"><span>상의</span><i>→</i></div><div className="side-axis"><span>하의</span><i>↓</i></div><div className="column-labels">{tops.map(t=><span key={t.name}>{t.name}</span>)}</div><div className="rows">{bottoms.map((bottom,row)=><div className="match-row" key={bottom.name}><strong className="row-label">{bottom.name}</strong>{tops.map((top,col)=><div className="match-cell" key={top.name}><Outfit top={top.color} bottom={bottom.color}/><b className={`mark mark-${matches[row][col] === "◎" ? "best" : matches[row][col] === "×" ? "no" : matches[row][col] === "△" ? "maybe" : "okay"}`}>{matches[row][col]}</b></div>)}</div>)}</div></div></div></main><footer><strong>생활팁</strong><span>색상 조합은 이미지 기준 참고 정보입니다.</span></footer></div>}
