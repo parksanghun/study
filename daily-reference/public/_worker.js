@@ -9,7 +9,7 @@ const feeds = {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (url.pathname === "/internal-news") {
+    if (url.searchParams.has("news")) {
       const country = url.searchParams.get("country") || "KR";
       const feed = feeds[country] || feeds.KR;
       try {
