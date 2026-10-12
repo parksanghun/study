@@ -96,3 +96,5 @@ header .main-menu{align-self:center;padding-top:0!important;padding-bottom:0!imp
 .history-card h3,.history-card p,.history-card>div{text-align:center}
 .history-cards{justify-items:center}.history-card{width:100%;max-width:430px;text-align:left}.history-card h3,.history-card p,.history-card>div{text-align:left}.history-card>div{justify-content:space-between}
 .history-cards{display:flex;justify-content:center;align-items:stretch;flex-wrap:wrap}.history-card{flex:0 1 430px}
+
+.history-slider{display:flex;align-items:center;justify-content:center;gap:14px}.history-arrow{flex:0 0 34px;width:34px;height:34px;border:1px solid #d8e2e1;border-radius:50%;background:#fff;color:#47757a;font-size:25px;line-height:1;cursor:pointer}.history-arrow:hover{background:#edf7f7}@media(max-width:650px){.history-slider{gap:8px}.history-arrow{flex-basis:30px;width:30px;height:30px;font-size:21px}}
