@@ -152,35 +152,35 @@ export const newsSnapshot = {
       "title": "중국과의 경쟁이 심화되는 가운데 미 국방부, 3억5천만 달러 규모 양자컴퓨팅 투자 공개",
       "link": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6acc11cc31ff4ab78b7621800666d37c&url=https%3a%2f%2fwww.thestar.com.my%2faseanplus%2faseanplus-news%2f2026%2f10%2f11%2fpentagon-unveils-us350-million-quantum-computing-push-as-china-rivalry-grows&c=3073002639291762618&mkt=en-my",
       "source": "해외 언론",
-      "image": "https://images.unsplash.com/photo-1508804185872-d7BADAD00f7d?w=900&q=80",
+      "image": "https://images.unsplash.com/photo-1474181487882-5abf3f0ba6c2?w=900&q=80",
       "date": "Sun, 11 Oct 2026 13:33:00 GMT"
     },
     {
       "title": "중국, 신차 기술 규정 강화…제로 중력 좌석·과도한 화면·헤드라이트 메시지 제한",
       "link": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6acc11cc31ff4ab78b7621800666d37c&url=https%3a%2f%2fcarnewschina.com%2f2026%2f10%2f11%2fchina-tightens-rules-on-new-car-tech-limits-zero-g-seats-excessive-screens-and-headlight-messaging%2f&c=9974472944363408076&mkt=en-my",
       "source": "해외 언론",
-      "image": "https://images.unsplash.com/photo-1508804185872-d7BADAD00f7d?w=900&q=80",
+      "image": "https://images.unsplash.com/photo-1474181487882-5abf3f0ba6c2?w=900&q=80",
       "date": "Sun, 11 Oct 2026 02:42:00 GMT"
     },
     {
       "title": "중국, 디지털 경제 확장을 위한 국가 블록체인 출범",
       "link": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6acc11cc31ff4ab78b7621800666d37c&url=https%3a%2f%2fwww.msn.com%2fen-us%2fnews%2fother%2fchina-launches-national-blockchain-as-part-of-wider-plan-to-accelerate-expansion-of-digital-economy%2far-AA2e0ggz&c=14198022910396311195&mkt=en-my",
       "source": "해외 언론",
-      "image": "https://images.unsplash.com/photo-1508804185872-d7BADAD00f7d?w=900&q=80",
+      "image": "https://images.unsplash.com/photo-1474181487882-5abf3f0ba6c2?w=900&q=80",
       "date": "Sun, 11 Oct 2026 05:20:56 GMT"
     },
     {
       "title": "중국 외국인 직접투자 통계와 현황",
       "link": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6acc11cc31ff4ab78b7621800666d37c&url=https%3a%2f%2fwww.statista.com%2ftopics%2f8962%2fforeign-direct-investment-fdi-into-china%2f&c=9812991222981795532&mkt=en-my",
       "source": "해외 언론",
-      "image": "https://images.unsplash.com/photo-1508804185872-d7BADAD00f7d?w=900&q=80",
+      "image": "https://images.unsplash.com/photo-1474181487882-5abf3f0ba6c2?w=900&q=80",
       "date": "Sun, 26 Jul 2026 17:00:00 GMT"
     },
     {
       "title": "테슬라의 중국 돌파구를 둘러싼 지정학",
       "link": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6acc11cc31ff4ab78b7621800666d37c&url=https%3a%2f%2fthediplomat.com%2f2024%2f05%2fthe-geopolitics-of-teslas-china-breakthrough%2f&c=12868603042028248808&mkt=en-my",
       "source": "해외 언론",
-      "image": "https://images.unsplash.com/photo-1508804185872-d7BADAD00f7d?w=900&q=80",
+      "image": "https://images.unsplash.com/photo-1474181487882-5abf3f0ba6c2?w=900&q=80",
       "date": "Wed, 01 May 2024 19:16:00 GMT"
     }
   ]
