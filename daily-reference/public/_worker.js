@@ -64,12 +64,10 @@ async function getRankings(request,env){
 }
 
 function decodeXml(value){return value.replace(/<!\[CDATA\[|\]\]>/g,"").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&#39;/g,"'").replace(/&quot;/g,'"').trim()}
-async function getOverseasNews(request){
-  const cache=caches.default; const cacheKey=new Request(new URL("/api/overseas-news.json?v=6",request.url),request); const cached=await cache.match(cacheKey); if(cached)return cached;
-  const countries=[{code:"US",query:"world news",mkt:"en-US"},{code:"JP",query:"世界 ニュース",mkt:"ja-JP"},{code:"GB",query:"world news",mkt:"en-GB"},{code:"CN",query:"世界 新闻",mkt:"zh-CN"}];
-  const now=Date.now(); const result={};
-  const field=(block,name)=>{const match=block.match(new RegExp("<"+name+"(?:\\s[^>]*)?>([\\s\\S]*?)</"+name+">","i"));return match?decodeXml(match[1].replace(/<!\\[CDATA\\[|\\]\\]>/g," ").trim()):""};
-  await Promise.all(countries.map(async country=>{const items=[];try{const url=`https://news.google.com/rss/search?q=${encodeURIComponent(country.query)}&hl=${country.mkt}&gl=${country.code}&ceid=${country.code}:${country.mkt.split("-")[0]}`;const response=await fetch(url,{headers:{"User-Agent":"Mozilla/5.0","Accept":"application/rss+xml, application/xml, text/xml"}});if(response.ok){const xml=await response.text();for(const match of xml.matchAll(/<item\b[^>]*>([\s\S]*?)<\/item>/gi)){const block=match[1];const pubDate=field(block,"pubDate");const published=Date.parse(pubDate);if(!Number.isFinite(published)||now-published>24*60*60*1000||now-published<-24*60*60*1000)continue;const title=field(block,"title");const link=field(block,"link");if(title&&link)items.push({title,link,date:pubDate,source:field(block,"source")||"Google News",image:""});}}}catch{}result[country.code]=items.slice(0,3)}));
+async function getOverseasNews(request,env){
+  const cache=caches.default; const cacheKey=new Request(new URL("/api/overseas-news.json?v=7",request.url),request); const cached=await cache.match(cacheKey); if(cached)return cached;
+  const countries=[{code:"US",query:"미국 국제 뉴스"},{code:"JP",query:"일본 국제 뉴스"},{code:"GB",query:"영국 국제 뉴스"},{code:"CN",query:"중국 국제 뉴스"}]; const result={};
+  await Promise.all(countries.map(async country=>{const items=[];try{const url=`https://naverapihub.apigw.ntruss.com/search/v1/news?query=${encodeURIComponent(country.query)}&display=10&start=1&sort=date&format=json`;const response=await fetch(url,{headers:{"X-NCP-APIGW-API-KEY-ID":env.NAVER_CLIENT_ID,"X-NCP-APIGW-API-KEY":env.NAVER_CLIENT_SECRET}});if(response.ok){const data=await response.json();for(const item of data.items||[]){const publishedAt=item.pubDate||item.postdate;const time=Date.parse(publishedAt||"");if(!Number.isFinite(time)||time>Date.now()||Date.now()-time>24*60*60*1000)continue;const title=decodeXml((item.title||"").replace(/<[^>]+>/g,""));if(title&&item.link)items.push({title,link:item.link,date:publishedAt,source:"Naver News",image:""})}}}catch{}result[country.code]=items.slice(0,3)}));
   const response=new Response(JSON.stringify({countries:result}),{headers:{"Content-Type":"application/json; charset=utf-8","Cache-Control":"public, max-age=600, s-maxage=600, stale-while-revalidate=300"}}); await cache.put(cacheKey,response.clone()); return response;
 }
 async function getHotIssues(request,env){
