@@ -79,7 +79,7 @@ async function getHotIssues(request,env){
   const recent=unique.filter(item=>{const time=Date.parse(item.publishedAt);return Number.isFinite(time)&&time<=Date.now()&&Date.now()-time<=48*60*60*1000});
   const stopwords=new Set(["오늘","관련","대한","통해","위한","있는","에서","으로","그리고","뉴스","실시간"]);
   const counts={};
-  recent.forEach(item=>{for(const word of item.title.match(/[가-힣A-Za-z0-9]{2,}/g)||[]){if(!stopwords.has(word))counts[word]=(counts[word]||0)+1}});
+  recent.forEach(item=>{for(const word of item.title.match(/[가-힣A-Za-z0-9]{2,}/g)||[]){if(!stopwords.has(word)&&!/^\d+$/.test(word))counts[word]=(counts[word]||0)+1}});
   const keywords=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,12).map(([word])=>word);
   let trends=[];
   try{
