@@ -48,7 +48,7 @@ async function getDailyMenu(request,env){
 
 async function getRankings(request,env){
   const kst=new Date(Date.now()+9*60*60*1000); const date=kst.toISOString().slice(0,10);
-  const cache=caches.default; const cacheKey=new Request(new URL(`/rankings.json?v=5&date=${date}`,request.url),request);
+  const cache=caches.default; const cacheKey=new Request(new URL(`/rankings.json?v=6&date=${date}`,request.url),request);
   const cached=await cache.match(cacheKey); if(cached)return cached;
   const countries=[{code:"kr",name:"한국",flag:"🇰🇷"},{code:"us",name:"미국",flag:"🇺🇸"},{code:"jp",name:"일본",flag:"🇯🇵"},{code:"gb",name:"영국",flag:"🇬🇧"}];
   const result={date,countries: {}};
@@ -58,6 +58,7 @@ async function getRankings(request,env){
     if(!data.books.length&&country.code==="kr"){try{const r=await fetch("https://www.aladin.co.kr/shop/common/wbest.aspx?BranchType=1",{headers:{"User-Agent":"Mozilla/5.0","Accept":"text/html"}});if(r.ok){const html=await r.text();const matches=[...html.matchAll(/<a href="(https:\/\/www\.aladin\.co\.kr\/shop\/wproduct\.aspx\?ItemId=\d+)" class="bo3">([^<]+)<\/a>/g)];data.books=matches.slice(0,5).map(x=>({title:x[2].trim(),artist:"알라딘 베스트셀러",url:x[1],image:""}))}}catch{}}
     try{const r=await fetch(`https://rss.applemarketingtools.com/api/v2/${country.code}/music/most-played/10/songs.json`,{headers:{"User-Agent":"Mozilla/5.0","Accept":"application/json"}});if(r.ok){const rows=(await r.json()).feed?.results||[];data.songs=rows.slice(0,5).map(x=>({title:x.name,artist:x.artistName,url:x.url,image:x.artworkUrl100}))}}catch{}
     try{const r=await fetch(`https://itunes.apple.com/${country.code}/rss/topmovies/limit=10/json`,{headers:{"User-Agent":"Mozilla/5.0","Accept":"application/json"}});if(r.ok){const rows=(await r.json()).feed?.entry||[];data.movies=rows.slice(0,5).map(x=>({title:x.title?.label||"",artist:x["im:artist"]?.label||"",url:x.link?.[0]?.attributes?.href||"",image:x["im:image"]?.[2]?.label||null}))}}catch{}
+    if(!data.movies.length){try{const r=await fetch(`https://itunes.apple.com/${country.code}/rss/topmovies/limit=10/json?retry=1`,{headers:{"User-Agent":"Mozilla/5.0","Accept":"application/json","Cache-Control":"no-cache"}});if(r.ok){const rows=(await r.json()).feed?.entry||[];data.movies=rows.slice(0,5).map(x=>({title:x.title?.label||"",artist:x["im:artist"]?.label||"",url:x.link?.[0]?.attributes?.href||"",image:x["im:image"]?.[2]?.label||null}))}}catch{}}
     if(!data.movies.length&&env.TMDB_API_KEY){try{const r=await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${encodeURIComponent(env.TMDB_API_KEY)}&language=ko-KR&region=${country.code.toUpperCase()}`);if(r.ok){const rows=(await r.json()).results||[];data.movies=rows.slice(0,5).map(x=>({title:x.title,artist:x.release_date||"",url:`https://www.themoviedb.org/movie/${x.id}`,image:x.poster_path?`https://image.tmdb.org/t/p/w342${x.poster_path}`:null}))}}catch{}}
     result.countries[country.code]={...country,...data};
   }));
