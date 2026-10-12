@@ -95,3 +95,4 @@ header .main-menu{align-self:center;padding-top:0!important;padding-bottom:0!imp
 
 .history-card h3,.history-card p,.history-card>div{text-align:center}
 .history-cards{justify-items:center}.history-card{width:100%;max-width:430px;text-align:left}.history-card h3,.history-card p,.history-card>div{text-align:left}.history-card>div{justify-content:space-between}
+.history-cards{display:flex;justify-content:center;align-items:stretch;flex-wrap:wrap}.history-card{flex:0 1 430px}
