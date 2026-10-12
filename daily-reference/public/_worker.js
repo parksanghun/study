@@ -68,7 +68,7 @@ async function getRankings(request,env){
 
 function decodeXml(value){return value.replace(/<!\[CDATA\[|\]\]>/g,"").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&#39;/g,"'").replace(/&quot;/g,'"').trim()}
 async function getHotIssues(request,env){
-  const cache=caches.default; const cacheKey=new Request(new URL("/api/hot-issues-naver-v8.json",request.url),request); const cached=await cache.match(cacheKey); if(cached)return cached;
+  const cache=caches.default; const cacheKey=new Request(new URL("/api/hot-issues-naver-v9.json",request.url),request); const cached=await cache.match(cacheKey); if(cached)return cached;
   const categories=[{key:"entertainment",label:"연예",query:"연예"},{key:"economy",label:"경제",query:"경제"},{key:"society",label:"사회",query:"사회"},{key:"sports",label:"스포츠",query:"스포츠"}]; const issues=[];
   const decode=value=>value.replace(/<!\[CDATA\[|\]\]>/g,"").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&#39;/g,"'").replace(/&quot;/g,'"').trim();
   const formatKst=value=>{const time=Date.parse(value);if(!Number.isFinite(time))return "";const parts=new Intl.DateTimeFormat("ko-KR",{timeZone:"Asia/Seoul",month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date(time));const get=type=>parts.find(part=>part.type===type)?.value??"";return `${get("month")}월 ${get("day")}일 ${get("hour")}:${get("minute")}`};
@@ -99,4 +99,4 @@ async function getHotIssues(request,env){
   const response=new Response(JSON.stringify(result),{headers:{"Content-Type":"application/json; charset=utf-8","Cache-Control":"public, max-age=600, s-maxage=600, stale-while-revalidate=300"}}); await cache.put(cacheKey,response.clone()); return response;
 }
 
-export default {async fetch(request, env){const url=new URL(request.url);if(url.pathname==="/market-data.json")return getQuotes(request);if(url.pathname==="/daily-menu.json")return getDailyMenu(request,env);if(url.pathname==="/rankings.json"||url.pathname==="/api/rankings.json")return getRankings(request,env);if((url.pathname==="/api/hot-issues.json"||url.pathname==="/api/hot-issues-naver-v8.json"))return getHotIssues(request,env);return env.ASSETS.fetch(request)}};
+export default {async fetch(request, env){const url=new URL(request.url);if(url.pathname==="/market-data.json")return getQuotes(request);if(url.pathname==="/daily-menu.json")return getDailyMenu(request,env);if(url.pathname==="/rankings.json"||url.pathname==="/api/rankings.json")return getRankings(request,env);if((url.pathname==="/api/hot-issues.json"||url.pathname==="/api/hot-issues-naver-v9.json"))return getHotIssues(request,env);return env.ASSETS.fetch(request)}};
