@@ -7,3 +7,8 @@ export const newsCountries = [
 ] as const;
 
 export type NewsItem = { title: string; link: string; source: string; date: string };
+
+/** Keep the last known snapshot visible when a live feed responds without articles. */
+export function selectNewsItems<T>(liveItems: readonly T[] | undefined, fallbackItems: readonly T[]): readonly T[] {
+  return liveItems?.length ? liveItems : fallbackItems;
+}
