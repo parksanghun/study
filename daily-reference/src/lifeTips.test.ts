@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { lifeTips, matchesLifeTipQuery } from "./lifeTips";
 
-describe("생활팁 콘텐츠", () => {
+describe("오늘의 하루 콘텐츠", () => {
   it("추천 콘텐츠 100개를 모두 포함한다", () => {
     expect(lifeTips).toHaveLength(150);
   });
