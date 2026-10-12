@@ -66,4 +66,12 @@ async function getRankings(request,env){
   const response=new Response(JSON.stringify(result),{headers:{"Content-Type":"application/json; charset=utf-8","Cache-Control":"public, max-age=3600"}}); await cache.put(cacheKey,response.clone()); return response;
 }
 
-export default {async fetch(request, env){const url=new URL(request.url);if(url.pathname==="/market-data.json")return getQuotes(request);if(url.pathname==="/daily-menu.json")return getDailyMenu(request,env);if(url.pathname==="/rankings.json"||url.pathname==="/api/rankings.json")return getRankings(request,env);return env.ASSETS.fetch(request)}};
+function decodeXml(value){return value.replace(/<!\[CDATA\[|\]\]>/g,"").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&#39;/g,"'").replace(/&quot;/g,'"').trim()}
+async function getHotIssues(request){
+  const cache=caches.default; const cacheKey=new Request(new URL("/api/hot-issues.json?v=1",request.url),request); const cached=await cache.match(cacheKey); if(cached)return cached;
+  const countries=[{code:"KR",label:"한국",search:"South Korea"},{code:"US",label:"미국",search:"United States"},{code:"JP",label:"일본",search:"Japan"},{code:"GB",label:"영국",search:"United Kingdom"},{code:"CN",label:"중국",search:"China"}]; const issues=[];
+  await Promise.all(countries.map(async country=>{try{const r=await fetch(`https://www.bing.com/news/search?q=${encodeURIComponent(country.search)}&format=rss`,{headers:{"User-Agent":"Mozilla/5.0","Accept":"application/rss+xml,application/xml"}});if(!r.ok)return;const xml=await r.text();const matches=[...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].slice(0,3);matches.forEach(match=>{const body=match[1];const title=body.match(/<title>([\s\S]*?)<\/title>/)?.[1];const link=body.match(/<link>([\s\S]*?)<\/link>/)?.[1];const date=body.match(/<pubDate>([\s\S]*?)<\/pubDate>/)?.[1];if(title&&link)issues.push({country:country.label,title:decodeXml(title),link:decodeXml(link),date:date?decodeXml(date):""})})}catch{}}));
+  issues.sort((a,b)=>String(b.date).localeCompare(String(a.date))); const result={updatedAt:new Date().toISOString(),issues:issues.slice(0,10)}; const response=new Response(JSON.stringify(result),{headers:{"Content-Type":"application/json; charset=utf-8","Cache-Control":"public, max-age=900"}}); await cache.put(cacheKey,response.clone()); return response;
+}
+
+export default {async fetch(request, env){const url=new URL(request.url);if(url.pathname==="/market-data.json")return getQuotes(request);if(url.pathname==="/daily-menu.json")return getDailyMenu(request,env);if(url.pathname==="/rankings.json"||url.pathname==="/api/rankings.json")return getRankings(request,env);if(url.pathname==="/api/hot-issues.json")return getHotIssues(request);return env.ASSETS.fetch(request)}};
