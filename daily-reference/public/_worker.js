@@ -64,6 +64,13 @@ async function getRankings(request,env){
 }
 
 function decodeXml(value){return value.replace(/<!\[CDATA\[|\]\]>/g,"").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&#39;/g,"'").replace(/&quot;/g,'"').trim()}
+async function getOverseasNews(request){
+  const cache=caches.default; const cacheKey=new Request(new URL("/api/overseas-news.json?v=2",request.url),request); const cached=await cache.match(cacheKey); if(cached)return cached;
+  const countries=[{code:"US",label:"미국",query:"United States world news",mkt:"en-US"},{code:"JP",label:"일본",query:"Japan world news",mkt:"ja-JP"},{code:"GB",label:"영국",query:"United Kingdom world news",mkt:"en-GB"},{code:"CN",label:"중국",query:"China world news",mkt:"zh-CN"}];
+  const result={}; await Promise.all(countries.map(async country=>{const items=[];try{const r=await fetch(`https://www.bing.com/news/search?q=${encodeURIComponent(country.query)}&format=rss&mkt=${country.mkt}`,{headers:{"User-Agent":"Mozilla/5.0","Accept":"application/rss+xml,application/xml"}});if(r.ok){const xml=await r.text();for(const match of xml.matchAll(/<item>([\s\S]*?)<\/item>/g)){const block=match[1];const get=name=>{const m=block.match(new RegExp(`<${name}[^>]*>([\s\S]*?)<\/${name}>`));return m?decodeXml(m[1].replace(/<!\[CDATA\[|\]\]>/g,"")):""};const pubDate=get("pubDate");const published=Date.parse(pubDate);if(Number.isFinite(published)&&Date.now()-published<=24*60*60*1000&&Date.now()-published>=-60*60*1000)items.push({title:get("title"),link:get("link"),date:pubDate,source:get("source"),image:""});}}}catch{}result[country.code]=items.slice(0,3)}));
+  const response=new Response(JSON.stringify({countries:result}),{headers:{"Content-Type":"application/json; charset=utf-8","Cache-Control":"public, max-age=600, s-maxage=600, stale-while-revalidate=300"}}); await cache.put(cacheKey,response.clone()); return response;
+}
+
 async function getHotIssues(request,env){
   const cache=caches.default; const cacheKey=new Request(new URL("/api/hot-issues-naver-v11.json",request.url),request); const cached=await cache.match(cacheKey); if(cached)return cached;
   const categories=[{key:"entertainment",label:"연예",query:"연예"},{key:"economy",label:"경제",query:"경제"},{key:"society",label:"사회",query:"사회"},{key:"sports",label:"스포츠",query:"스포츠"}]; const issues=[];
@@ -96,4 +103,4 @@ async function getHotIssues(request,env){
   const response=new Response(JSON.stringify(result),{headers:{"Content-Type":"application/json; charset=utf-8","Cache-Control":"public, max-age=600, s-maxage=600, stale-while-revalidate=300"}}); await cache.put(cacheKey,response.clone()); return response;
 }
 
-export default {async fetch(request, env){const url=new URL(request.url);if(url.pathname==="/market-data.json")return getQuotes(request);if(url.pathname==="/daily-menu.json")return getDailyMenu(request,env);if(url.pathname==="/rankings.json"||url.pathname==="/api/rankings.json")return getRankings(request,env);if((url.pathname==="/api/hot-issues.json"||url.pathname==="/api/hot-issues-naver-v11.json"))return getHotIssues(request,env);return env.ASSETS.fetch(request)}};
+export default {async fetch(request, env){const url=new URL(request.url);if(url.pathname==="/market-data.json")return getQuotes(request);if(url.pathname==="/daily-menu.json")return getDailyMenu(request,env);if(url.pathname==="/rankings.json"||url.pathname==="/api/rankings.json")return getRankings(request,env);if(url.pathname==="/api/overseas-news.json")return getOverseasNews(request);if((url.pathname==="/api/hot-issues.json"||url.pathname==="/api/hot-issues-naver-v11.json"))return getHotIssues(request,env);return env.ASSETS.fetch(request)}};
