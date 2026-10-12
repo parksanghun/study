@@ -15,7 +15,7 @@ describe("앱 런타임 렌더링", () => {
     }) as typeof fetch;
     render(<App />);
     expect(document.body.textContent).toContain("오늘의 날씨");
-    expect(document.body.textContent).toContain("나라별 증시 지수");
+    expect(document.body.textContent).toContain("오늘의 증시");
     expect([...document.querySelectorAll(".news-card img")].every(image => image.getAttribute("alt"))).toBe(true);
   });
 });
