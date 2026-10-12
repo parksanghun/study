@@ -64,7 +64,7 @@ async function getRankings(request,env){
 }
 
 function decodeXml(value){return value.replace(/<!\[CDATA\[|\]\]>/g,"").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&#39;/g,"'").replace(/&quot;/g,'"').trim()}
-async function translateNewsTitle(title){try{const url=`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=ko&dt=t&q=${encodeURIComponent(title.slice(0,300))}`;const response=await fetch(url);if(!response.ok)return title;const data=await response.json();const translated=(data?.[0]||[]).map(item=>item?.[0]||"").join("").trim();return translated||title}catch{return title}}
+async function translateNewsTitle(title){try{const url=`https://api.mymemory.translated.net/get?q=${encodeURIComponent(title.slice(0,500))}&langpair=autodetect|ko`;const response=await fetch(url,{headers:{"Accept":"application/json"}});if(!response.ok)return title;const data=await response.json();const translated=data?.responseData?.translatedText?.trim();return translated||title}catch{return title}}
 
 async function getOverseasNews(request){
   const cache=caches.default; const cacheKey=new Request(new URL("/api/overseas-news.json?v=13",request.url),request); const cached=await cache.match(cacheKey); if(cached)return cached;
