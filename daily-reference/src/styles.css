@@ -79,3 +79,4 @@ header .main-menu{align-self:center;padding-top:0!important;padding-bottom:0!imp
 @media(max-width:720px){header{min-height:0!important;padding:6px 18px!important;gap:12px!important;align-items:center!important}header .main-menu{padding-top:0!important;padding-bottom:0!important}}
 .app-loading-screen,.app-error-screen{min-height:100vh;display:grid;place-content:center;justify-items:center;gap:10px;padding:24px;text-align:center;color:#17264b}.app-loading-screen h1,.app-error-screen h1{margin:0;font-size:28px}.app-loading-screen p,.app-error-screen p{margin:0;color:#71808a}.app-error-screen button{border:1px solid #c9dce7;border-radius:8px;padding:9px 14px;background:#fff;color:#386b87;font:inherit;cursor:pointer}
 .sunrise-sunset{color:#637e89!important;font-weight:600}
+.sunrise-sunset{display:block!important;margin-top:12px;padding-top:10px;border-top:1px solid #e8eff1;color:#52717d;font-size:12px;font-weight:600;line-height:1.4}
