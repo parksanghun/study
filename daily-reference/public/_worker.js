@@ -48,7 +48,7 @@ async function getDailyMenu(request,env){
 
 async function getRankings(request,env){
   const kst=new Date(Date.now()+9*60*60*1000); const date=kst.toISOString().slice(0,10);
-  const cache=caches.default; const cacheKey=new Request(new URL(`/rankings.json?v=9&date=${date}`,request.url),request);
+  const cache=caches.default; const cacheKey=new Request(new URL(`/rankings.json?v=10&date=${date}`,request.url),request);
   const cached=await cache.match(cacheKey); if(cached)return cached;
   const countries=[{code:"kr",name:"한국",flag:"🇰🇷"},{code:"us",name:"미국",flag:"🇺🇸"},{code:"jp",name:"일본",flag:"🇯🇵"},{code:"gb",name:"영국",flag:"🇬🇧"}];
   const result={date,countries: {}};
@@ -60,7 +60,7 @@ async function getRankings(request,env){
     if(country.code==="kr"){if(env.KOBIS_API_KEY){try{const targetDt=date.replaceAll("-","");const r=await fetch(`https://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${encodeURIComponent(env.KOBIS_API_KEY)}&targetDt=${targetDt}`,{headers:{"Accept":"application/json"}});if(r.ok){const rows=(await r.json()).boxOfficeResult?.dailyBoxOfficeList||[];data.movies=rows.slice(0,5).map(x=>({title:x.movieNm||"",artist:`${Number(x.audiCnt||0).toLocaleString("ko-KR")}명 · ${x.openDt||""}`,url:`https://www.kobis.or.kr/kobis/business/mast/mvie/searchMovieList.do?movieCd=${encodeURIComponent(x.movieCd||"")}`,image:null}))}}catch{}}}else{try{const r=await fetch(`https://itunes.apple.com/${country.code}/rss/topmovies/limit=10/json`,{headers:{"User-Agent":"Mozilla/5.0","Accept":"application/json"}});if(r.ok){const rows=(await r.json()).feed?.entry||[];data.movies=rows.slice(0,5).map(x=>({title:x.title?.label||"",artist:x["im:artist"]?.label||"",url:(x.link?.[0]?.attributes?.href||"").replace(`https://itunes.apple.com/${country.code}/movie/`,`https://itunes.apple.com/us/movie/`),image:x["im:image"]?.[2]?.label||null}))}}catch{}if(!data.movies.length){try{const r=await fetch(`https://itunes.apple.com/${country.code}/rss/topmovies/limit=10/json?retry=1`,{headers:{"User-Agent":"Mozilla/5.0","Accept":"application/json","Cache-Control":"no-cache"}});if(r.ok){const rows=(await r.json()).feed?.entry||[];data.movies=rows.slice(0,5).map(x=>({title:x.title?.label||"",artist:x["im:artist"]?.label||"",url:(x.link?.[0]?.attributes?.href||"").replace(`https://itunes.apple.com/${country.code}/movie/`,`https://itunes.apple.com/us/movie/`),image:x["im:image"]?.[2]?.label||null}))}}catch{}}}
     result.countries[country.code]={...country,...data};
   }));
-  const response=new Response(JSON.stringify(result),{headers:{"Content-Type":"application/json; charset=utf-8","Cache-Control":"public, max-age=3600"}}); await cache.put(cacheKey,response.clone()); return response;
+  const response=new Response(JSON.stringify(result),{headers:{"Content-Type":"application/json; charset=utf-8","Cache-Control":"public, max-age=43200, s-maxage=43200, stale-while-revalidate=3600"}}); await cache.put(cacheKey,response.clone()); return response;
 }
 
 function decodeXml(value){return value.replace(/<!\[CDATA\[|\]\]>/g,"").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&#39;/g,"'").replace(/&quot;/g,'"').trim()}
