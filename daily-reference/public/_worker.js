@@ -96,7 +96,7 @@ async function getHotIssues(request,env){
   const finalRecent=finalIssues.filter(item=>{const time=Date.parse(item.publishedAt);return Number.isFinite(time)&&time<=Date.now()&&Date.now()-time<=48*60*60*1000});
   finalRecent.sort((a,b)=>(a.priority-b.priority)||(Date.parse(b.publishedAt)-Date.parse(a.publishedAt)));
   const result={updatedAt:new Date().toISOString(),categories:categories.map(({key,label})=>({key,label})),keywords:trendKeywords.length?trendKeywords:keywords.slice(0,5),trends,issues:finalRecent.slice(0,20)};
-  const response=new Response(JSON.stringify(result),{headers:{"Content-Type":"application/json; charset=utf-8","Cache-Control":"public, max-age=1800, s-maxage=1800, stale-while-revalidate=300"}}); await cache.put(cacheKey,response.clone()); return response;
+  const response=new Response(JSON.stringify(result),{headers:{"Content-Type":"application/json; charset=utf-8","Cache-Control":"public, max-age=600, s-maxage=600, stale-while-revalidate=300"}}); await cache.put(cacheKey,response.clone()); return response;
 }
 
 export default {async fetch(request, env){const url=new URL(request.url);if(url.pathname==="/market-data.json")return getQuotes(request);if(url.pathname==="/daily-menu.json")return getDailyMenu(request,env);if(url.pathname==="/rankings.json"||url.pathname==="/api/rankings.json")return getRankings(request,env);if((url.pathname==="/api/hot-issues.json"||url.pathname==="/api/hot-issues-naver-v7.json"))return getHotIssues(request,env);return env.ASSETS.fetch(request)}};
