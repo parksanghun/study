@@ -72,3 +72,8 @@ footer{border-top:1px solid #eee;padding:22px max(18px,calc((100% - 900px)/2));f
 /* Header-to-weather alignment: keep the divider and first content edge tight. */
 .tips-page main{padding-top:0!important}.today-dashboard{padding-top:0!important}.today-dashboard .dashboard-heading{align-items:center}.today-dashboard .dashboard-heading>div{display:flex;align-items:baseline;gap:10px}.today-dashboard .dashboard-heading .section-kicker{margin:0}.today-dashboard .dashboard-heading h2{margin:0}.today-dashboard .dashboard-heading .current-datetime{margin-left:auto}
 @media(max-width:720px){.tips-page main{padding-top:0!important}.today-dashboard{padding-top:0!important}.today-dashboard .dashboard-heading>div{gap:6px}.today-dashboard .dashboard-heading h2{line-height:1.2}}
+
+/* Compact header alignment */
+header{min-height:0!important;height:auto!important;padding:3px max(18px,calc((100% - 900px)/2))!important;align-items:center!important;gap:38px!important}
+header .main-menu{align-self:center;padding-top:0!important;padding-bottom:0!important;line-height:1.2}
+@media(max-width:720px){header{min-height:0!important;padding:3px 18px!important;gap:12px!important;align-items:center!important}header .main-menu{padding-top:0!important;padding-bottom:0!important}}
