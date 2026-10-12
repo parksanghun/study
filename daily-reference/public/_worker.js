@@ -48,7 +48,7 @@ async function getDailyMenu(request,env){
 
 async function getRankings(request,env){
   const kst=new Date(Date.now()+9*60*60*1000); const date=kst.toISOString().slice(0,10);
-  const cache=caches.default; const cacheKey=new Request(new URL(`/rankings.json?v=2&date=${date}`,request.url),request);
+  const cache=caches.default; const cacheKey=new Request(new URL(`/rankings.json?v=3&date=${date}`,request.url),request);
   const cached=await cache.match(cacheKey); if(cached)return cached;
   const countries=[{code:"kr",name:"한국",flag:"🇰🇷"},{code:"us",name:"미국",flag:"🇺🇸"},{code:"jp",name:"일본",flag:"🇯🇵"},{code:"gb",name:"영국",flag:"🇬🇧"}];
   const result={date,countries: {}};
@@ -59,7 +59,7 @@ async function getRankings(request,env){
     if(env.TMDB_API_KEY){try{const r=await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${encodeURIComponent(env.TMDB_API_KEY)}&language=ko-KR&region=${country.code.toUpperCase()}`);if(r.ok){const rows=(await r.json()).results||[];data.movies=rows.slice(0,5).map(x=>({title:x.title,artist:x.release_date||"",url:`https://www.themoviedb.org/movie/${x.id}`,image:x.poster_path?`https://image.tmdb.org/t/p/w342${x.poster_path}`:null}))}}catch{}}
     result.countries[country.code]={...country,...data};
   }));
-  const response=new Response(JSON.stringify(result),{headers:{"Content-Type":"application/json; charset=utf-8","Cache-Control":"public, max-age=86400"}}); await cache.put(cacheKey,response.clone()); return response;
+  const response=new Response(JSON.stringify(result),{headers:{"Content-Type":"application/json; charset=utf-8","Cache-Control":"public, max-age=3600"}}); await cache.put(cacheKey,response.clone()); return response;
 }
 
 export default {async fetch(request, env){const url=new URL(request.url);if(url.pathname==="/market-data.json")return getQuotes(request);if(url.pathname==="/daily-menu.json")return getDailyMenu(request,env);if(url.pathname==="/rankings.json")return getRankings(request,env);return env.ASSETS.fetch(request)}};
