@@ -98,3 +98,5 @@ header .main-menu{align-self:center;padding-top:0!important;padding-bottom:0!imp
 .history-cards{display:flex;justify-content:center;align-items:stretch;flex-wrap:wrap}.history-card{flex:0 1 430px}
 
 .history-slider{display:flex;align-items:center;justify-content:center;gap:14px}.history-arrow{flex:0 0 34px;width:34px;height:34px;border:1px solid #d8e2e1;border-radius:50%;background:#fff;color:#47757a;font-size:25px;line-height:1;cursor:pointer}.history-arrow:hover{background:#edf7f7}@media(max-width:650px){.history-slider{gap:8px}.history-arrow{flex-basis:30px;width:30px;height:30px;font-size:21px}}
+
+.section-ad{height:auto;min-height:90px;overflow:visible}.section-ad .ad-slot{height:auto;min-height:90px}.section-ad .adsbygoogle{height:auto;max-height:none}
