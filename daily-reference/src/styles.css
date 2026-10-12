@@ -62,3 +62,5 @@ footer{border-top:1px solid #eee;padding:22px max(18px,calc((100% - 900px)/2));f
 .seasonal-food-cards{display:grid;grid-template-columns:1fr;gap:16px}
 
 .content-card{margin:0 0 26px;padding:24px;border:1px solid #e3e9e3;border-radius:18px;background:linear-gradient(135deg,#fbfdf9,#fff)}.content-card .section-heading{margin-bottom:12px}.content-card .section-heading h2{margin:0}.content-card>p,.daily-meal-body p,.daily-fact>p{margin:0;color:#52666b;line-height:1.8}.daily-meal-body{display:grid;gap:8px}.daily-meal-body strong{font-size:20px;color:#3e5d48}.daily-meal-body small{color:#82918b;font-size:12px}.daily-fact h3{margin:0 0 9px;color:#405c63;font-size:18px}.daily-fact{background:linear-gradient(135deg,#f8fbfd,#fff)}
+
+.current-datetime{display:block;margin:8px 0 0;text-align:right;color:#7b8d91;font-size:12px;font-variant-numeric:tabular-nums}@media(max-width:700px){.current-datetime{margin-top:7px;font-size:11px}}
