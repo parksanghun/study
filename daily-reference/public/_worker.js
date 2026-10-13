@@ -101,7 +101,7 @@ async function getHotIssues(request,env){
   const finalSeen=new Set(); const finalIssues=issues.filter(item=>{const key=`${item.title.toLowerCase()}|${item.link}`;if(finalSeen.has(key))return false;finalSeen.add(key);return true});
   const finalRecent=finalIssues.filter(item=>{const time=Date.parse(item.publishedAt);return Number.isFinite(time)&&time<=Date.now()&&Date.now()-time<=24*60*60*1000});
   finalRecent.sort((a,b)=>(a.priority-b.priority)||(Date.parse(b.publishedAt)-Date.parse(a.publishedAt)));
-  const trendCounts={}; const diverseRecent=finalRecent.filter(item=>{if(!item.trendQuery)return true;trendCounts[item.trendQuery]=(trendCounts[item.trendQuery]||0)+1;return trendCounts[item.trendQuery]<=2});
+  const trendCounts={}; const breakingCount={}; const diverseRecent=finalRecent.filter(item=>{if(item.category==="breaking"){breakingCount.breaking=(breakingCount.breaking||0)+1;return breakingCount.breaking<=2}if(!item.trendQuery)return true;trendCounts[item.trendQuery]=(trendCounts[item.trendQuery]||0)+1;return trendCounts[item.trendQuery]<=2});
   finalRecent.length=0; finalRecent.push(...diverseRecent);
   finalRecent.sort((a,b)=>(a.priority-b.priority)||(Date.parse(b.publishedAt)-Date.parse(a.publishedAt)));
   const result={updatedAt:new Date().toISOString(),categories:categories.map(({key,label})=>({key,label})),keywords:trendKeywords.length?trendKeywords:keywords.slice(0,5),trends,issues:finalRecent.slice(0,20)};
