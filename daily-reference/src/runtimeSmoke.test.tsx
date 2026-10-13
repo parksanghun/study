@@ -17,6 +17,8 @@ describe("앱 런타임 렌더링", () => {
     render(<App />);
     expect(document.body.textContent).toContain("오늘의 날씨");
     expect(document.body.textContent).toContain("오늘의 증시");
+    expect(document.body.textContent).toContain("필요한 생활팁 찾기");
+    expect(document.querySelector("input[aria-label=\"생활팁 검색\"]")).not.toBeNull();
     await waitFor(() => expect(document.querySelector(".weather-main")?.getAttribute("aria-live")).toBe("polite"));
     expect(document.querySelector(".temperature-range")?.textContent).toContain("최저 15° · 최고 25°");
     expect([...document.querySelectorAll(".news-card img")].every(image => image.getAttribute("alt"))).toBe(true);
