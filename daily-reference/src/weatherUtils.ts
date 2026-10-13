@@ -1,5 +1,26 @@
 export type WeatherSummary = { label: string; icon: string; advice: string };
 
+export type WeatherData = { temperature: number; min: number; max: number; humidity: number; wind: number; sunrise: string; sunset: string; code: number };
+
+type OpenMeteoResponse = { current?: { temperature_2m?: unknown; relative_humidity_2m?: unknown; wind_speed_10m?: unknown; weather_code?: unknown }; daily?: { temperature_2m_min?: unknown; temperature_2m_max?: unknown; sunrise?: unknown; sunset?: unknown } };
+
+function finiteNumber(value: unknown): value is number { return typeof value === "number" && Number.isFinite(value); }
+function firstFinite(value: unknown): number | null { return Array.isArray(value) && finiteNumber(value[0]) ? value[0] : null; }
+function firstString(value: unknown): string { return Array.isArray(value) && typeof value[0] === "string" ? value[0].slice(11, 16) : ""; }
+
+export function normalizeWeatherData(payload: unknown): WeatherData | null {
+  if (!payload || typeof payload !== "object") return null;
+  const { current, daily } = payload as OpenMeteoResponse;
+  const temperature = current && finiteNumber(current.temperature_2m) ? current.temperature_2m : null;
+  const min = daily ? firstFinite(daily.temperature_2m_min) : null;
+  const max = daily ? firstFinite(daily.temperature_2m_max) : null;
+  const humidity = current && finiteNumber(current.relative_humidity_2m) ? current.relative_humidity_2m : null;
+  const wind = current && finiteNumber(current.wind_speed_10m) ? current.wind_speed_10m : null;
+  const code = current && finiteNumber(current.weather_code) ? current.weather_code : null;
+  if (temperature === null || min === null || max === null || humidity === null || wind === null || code === null) return null;
+  return { temperature: Math.round(temperature), min: Math.round(min), max: Math.round(max), humidity: Math.round(humidity), wind: Math.round(wind), code, sunrise: firstString(daily?.sunrise), sunset: firstString(daily?.sunset) };
+}
+
 export function summarizeWeather(code: number): WeatherSummary {
   if (code === 0) return { label: "맑음", icon: "☀️", advice: "환기와 가벼운 외부 활동을 하기 좋은 날이에요." };
   if ([1, 2, 3].includes(code)) return { label: "구름 많음", icon: "⛅", advice: "얇은 겉옷과 실내 환기를 준비해보세요." };

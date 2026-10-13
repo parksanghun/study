@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {getDailyTipIndex} from "./tipUtils";
-import {summarizeWeather} from "./weatherUtils";
+import {normalizeWeatherData,summarizeWeather} from "./weatherUtils";
 import {languageTips} from "./languageTips";
 import {newsCountries,selectNewsItems} from "./news";
 import {newsSnapshot} from "./newsSnapshot";
@@ -71,7 +71,7 @@ function QuickActions(){return <div className="quick-actions" aria-label="오늘
 function TodayDashboard(){
   const [weather,setWeather]=useState<{temperature:number;min:number;max:number;humidity:number;wind:number;sunrise:string;sunset:string;code:number;place:string}|null>(null);
   const [weatherState,setWeatherState]=useState("loading");
-  const loadWeather=(latitude:number,longitude:number,place:string)=>{setWeatherState("loading");fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=Asia%2FSeoul`).then(response=>response.json()).then(data=>{const current=data.current;setWeather({temperature:Math.round(current.temperature_2m),min:Math.round(data.daily.temperature_2m_min[0]),max:Math.round(data.daily.temperature_2m_max[0]),humidity:Math.round(current.relative_humidity_2m),wind:Math.round(current.wind_speed_10m),sunrise:data.daily.sunrise?.[0]?.slice(11,16)||"",sunset:data.daily.sunset?.[0]?.slice(11,16)||"",code:current.weather_code,place});setWeatherState("ready")}).catch(()=>setWeatherState("error"))};
+  const loadWeather=(latitude:number,longitude:number,place:string)=>{setWeatherState("loading");fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=Asia%2FSeoul`).then(response=>{if(!response.ok)throw new Error("weather request failed");return response.json()}).then(data=>{const normalized=normalizeWeatherData(data);if(!normalized)throw new Error("weather response incomplete");setWeather({...normalized,place});setWeatherState("ready")}).catch(()=>setWeatherState("error"))};
   useEffect(()=>{loadWeather(37.5665,126.9780,"서울")},[]);
   const useMyLocation=()=>{if(!navigator.geolocation){setWeatherState("unsupported");return}setWeatherState("permission");navigator.geolocation.getCurrentPosition(position=>loadWeather(position.coords.latitude,position.coords.longitude,"내 위치"),()=>setWeatherState("denied"),{timeout:8000,maximumAge:300000})};
   const summary=weather?summarizeWeather(weather.code):null;
