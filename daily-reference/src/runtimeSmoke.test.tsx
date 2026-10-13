@@ -16,6 +16,8 @@ describe("앱 런타임 렌더링", () => {
     }) as typeof fetch;
     render(<App />);
     expect(document.body.textContent).toContain("오늘의 날씨");
+    expect(document.body.textContent).toContain("오늘 바로 하기");
+    expect(document.querySelector('.quick-actions a[href="#today-menu"]')).not.toBeNull();
     expect(document.body.textContent).toContain("오늘의 증시");
     await waitFor(() => expect(document.querySelector(".weather-main")?.getAttribute("aria-live")).toBe("polite"));
     expect(document.querySelector(".temperature-range")?.textContent).toContain("15° ~ 25°");
