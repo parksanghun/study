@@ -21,4 +21,10 @@ describe("앱 런타임 렌더링", () => {
     expect(document.querySelector(".temperature-range")?.textContent).toContain("최저 15° · 최고 25°");
     expect([...document.querySelectorAll(".news-card img")].every(image => image.getAttribute("alt"))).toBe(true);
   });
+
+  it("모바일에서도 날씨 로딩 상태를 안내한다", () => {
+    globalThis.fetch = vi.fn(() => new Promise(() => {})) as typeof fetch;
+    render(<App />);
+    expect(document.querySelector(".weather-status")?.textContent).toContain("날씨 정보를 확인하고 있어요");
+  });
 });

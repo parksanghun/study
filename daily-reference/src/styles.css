@@ -105,3 +105,6 @@ header .main-menu{align-self:center;padding-top:0!important;padding-bottom:0!imp
 @media(max-width:700px){.outfit-css-reference{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;padding:7px}.outfit-look{min-height:104px;padding:8px 3px}.outfit-drawing{height:48px;margin-bottom:5px;gap:3px}.outfit-shirt{width:24px;height:29px}.outfit-pants{width:21px;height:36px}.outfit-look strong{font-size:8px}.outfit-look small{font-size:8px}.outfit-number{top:4px;left:5px;font-size:8px}}
 .temperature-range{font-size:30px!important;letter-spacing:-.06em}@media(max-width:720px){.temperature-range{font-size:28px!important}}
 .today-dashboard .weather-main>strong.temperature-range{font-size:26px!important;line-height:1.15}@media(max-width:720px){.today-dashboard .weather-main>strong.temperature-range{font-size:24px!important}}
+
+/* Keep weather loading, permission, and error feedback visible on small screens. */
+@media(max-width:720px){.today-dashboard .standalone-weather .weather-status{display:flex;align-items:center;min-height:32px;margin:0;color:#5f737e;font-size:11px;line-height:1.45}}
