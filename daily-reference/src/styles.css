@@ -108,3 +108,11 @@ header .main-menu{align-self:center;padding-top:0!important;padding-bottom:0!imp
 
 /* Keep weather loading, permission, and error feedback visible on small screens. */
 @media(max-width:720px){.today-dashboard .standalone-weather .weather-status{display:flex;align-items:center;min-height:32px;margin:0;color:#5f737e;font-size:11px;line-height:1.45}}
+
+/* Keep the life-tip finder usable on narrow phones without horizontal overflow. */
+@media(max-width:560px){
+  .tip-tools{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-top:14px}
+  .tip-search{grid-column:1/-1;min-width:0}
+  .tip-tools select,.saved-filter{width:100%;min-width:0}
+  .tip-count{align-self:center;width:auto;justify-self:end;white-space:nowrap}
+}
