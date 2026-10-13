@@ -19,6 +19,7 @@ describe("앱 런타임 렌더링", () => {
     expect(document.body.textContent).toContain("오늘 바로 하기");
     expect(document.querySelector('.quick-actions a[href="#today-menu"]')).not.toBeNull();
     expect(document.body.textContent).toContain("오늘의 증시");
+    expect(document.body.textContent).toContain("네이비");
     expect(document.querySelector(".news-card-grid")?.getAttribute("aria-live")).toBe("polite");
     expect(document.querySelector(".market-country-card")?.getAttribute("aria-live")).toBe("polite");
     await waitFor(() => expect(document.querySelector(".weather-main")?.getAttribute("aria-live")).toBe("polite"));
