@@ -116,3 +116,4 @@ header .main-menu{align-self:center;padding-top:0!important;padding-bottom:0!imp
   .tip-tools select,.saved-filter{width:100%;min-width:0}
   .tip-count{align-self:center;width:auto;justify-self:end;white-space:nowrap}
 }
+.section-heading h2{font-size:30px!important;line-height:1.2}@media(max-width:720px){.section-heading h2{font-size:26px!important}}
