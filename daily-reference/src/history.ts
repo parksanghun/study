@@ -1,4 +1,11 @@
 export type HistoryItem = { country: string; flag: string; type: string; year: string; title: string; reason: string; };
+
+export function getKoreaDateKey(date: Date): string {
+  const parts = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul", month: "2-digit", day: "2-digit" }).formatToParts(date);
+  const month = parts.find(part => part.type === "month")?.value;
+  const day = parts.find(part => part.type === "day")?.value;
+  return month && day ? `${month}-${day}` : "";
+}
 export const historyByDate: Record<string, HistoryItem[]> = {
   "10-12": [
     {country:"스페인",flag:"🇪🇸",type:"국가 기념일",year:"1492",title:"스페인 국경일",reason:"콜럼버스 원정대가 아메리카 대륙에 도착한 날을 계기로 스페인의 역사와 문화를 돌아보는 날입니다."},
