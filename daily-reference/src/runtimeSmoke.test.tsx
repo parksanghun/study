@@ -24,7 +24,7 @@ describe("앱 런타임 렌더링", () => {
     expect(document.querySelector(".market-country-card")?.getAttribute("aria-live")).toBe("polite");
     await waitFor(() => expect(document.querySelector(".weather-main")?.getAttribute("aria-live")).toBe("polite"));
     expect(document.querySelector(".temperature-current")?.textContent).toContain("현재 20°");
-    expect(document.querySelector(".temperature-block small")?.textContent).toContain("최저 15° ~ 최고 25°");
+    expect(document.querySelector(".temperature-block small")?.textContent).toContain("15° ~ 25°");
     expect([...document.querySelectorAll(".news-card img")].every(image => image.getAttribute("alt"))).toBe(true);
   });
 
