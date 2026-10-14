@@ -4,3 +4,6 @@
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+
+/seo-pages-v2.css
+  Cache-Control: no-cache, must-revalidate
